@@ -139,6 +139,7 @@ function parseStudents() {
         let student = new Student(line);
         //Add a student if it didn't exist yet
         if (!studentExists(student)) students.push(student);
+        
     });
     //Reload the file after a couple of seconds
     setTimeout(loadFile, 10000);//Every 10 seconds
