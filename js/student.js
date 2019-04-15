@@ -24,6 +24,8 @@ function Student(line) {
         //Ease towards the correct score
         this.score += (this.targetScore - this.score) * 0.05;
 
+        if(this.score - this.targetScore > -1) this.score = this.targetScore;
+
         //Draw the bar
         fill(180);
         noStroke();
