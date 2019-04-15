@@ -20,8 +20,18 @@ const students = [];
  * Load the data file before we continue
  */
 function preload() {
+    loadFile(true);
+}
+
+/**
+ * Load the file
+ */
+function loadFile(skipDelay) {
     //Load the lines
-    lines = loadStrings('data/scores.csv');
+    lines = loadStrings('https://raw.githubusercontent.com/MGelein/latin-xptracker/master/data/scores.csv');
+    console.log("Loading data file...");
+    //Later parse the students
+    if(!skipDelay) setTimeout(parseStudents, 2000);//2 Seconds later, parse the students
 }
 
 /**
@@ -75,7 +85,7 @@ function draw() {
     line(x, 40, x, height - 20);
 
     //Sort all the students
-    students.sort(function(a, b){
+    students.sort(function (a, b) {
         return b.score - a.score;
     });
 }
@@ -117,6 +127,7 @@ function star(x, y) {
  * Parses the lines file into a studnets file
  */
 function parseStudents() {
+    console.log("Parse the students...");
     //For each of the lines, parse them
     lines.forEach(line => {
         //Ignore if the line starts with 'name', this means it's a header line
@@ -126,6 +137,8 @@ function parseStudents() {
         //Add a student if it didn't exist yet
         if (!studentExists(student)) students.push(student);
     });
+    //Reload the file after a couple of seconds
+    setTimeout(loadFile, 10000);//Every 10 seconds
 }
 
 /**
@@ -134,9 +147,11 @@ function parseStudents() {
  */
 function studentExists(s) {
     //For all students, check if the provided one matches
+    let found = false;
     students.forEach(student => {
-        if (student.name === s.name) return true;
+        if(found) return;
+        if (student.name == s.name) found = true;
     });
     //If no match found, set to false
-    return false;
+    return found;
 }
