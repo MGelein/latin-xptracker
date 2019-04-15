@@ -181,6 +181,7 @@ function replaceScore(s) {
         if (student.name == s.name) {
             //console.log("Replacing score of " + student.name + "(" + student.targetScore + ")" + " with a score of " + s.targetScore);
             student.targetScore = s.targetScore;
+            student.nick = s.nick;
         }
     });
 }
