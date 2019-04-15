@@ -1,0 +1,27 @@
+/**
+HTML OVERRIDES
+**/
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 200vw;
+    height: 300vh;
+}
+
+canvas{
+    height: auto;
+    width: 100vw;
+    z-index: -1;
+}
+/**
+BOOTSTRAP OVERRIDES
+**/
+
+/**
+CUSTOM CLASSES
+**/
+
+/**
+CUSTOM ID's
+**/
