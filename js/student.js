@@ -6,12 +6,16 @@
 function Student(line) {
     //Split into parts
     let parts = line.split(",");
+    while(parts.length < 3){
+        parts.push("0");
+    }
     //Parse the name
     this.name = parts[0].trim();
     //The nickname
     this.nick = parts[1].trim();
     //And the score, set it to the target
-    this.targetScore = parseInt(parts[2].trim());
+    if(parts[2]) this.targetScore = parseInt(parts[2].trim());
+    else this.targetScore = 0;
     //For the actual score, this is eased
     this.score = 0;
     //See if the nickname was valid
