@@ -30,7 +30,7 @@ function preload() {
 function loadFile(skipDelay) {
     //Load the lines
     console.log("Loading data file...");
-    $.get('https://raw.githubusercontent.com/MGelein/latin-xptracker/master/data/scores.csv', function(data){
+    $.get('./data/scores.csv', function(data){
         //Later parse the students
         lines = data.split('\n');
         parseStudents();
@@ -139,10 +139,24 @@ function parseStudents() {
         let student = new Student(line);
         //Add a student if it didn't exist yet
         if (!studentExists(student)) students.push(student);
+        else replaceScore(student);
         
     });
     //Reload the file after a couple of seconds
     setTimeout(loadFile, 10000);//Every 10 seconds
+}
+
+/**
+ * Replaces the score of a student with the same name
+ * @param {Student} s 
+ */
+function replaceScore(s){
+    students.forEach(student =>{
+        if(student.name == s.name) {
+            console.log("Replacing score of " + student.name + "(" + student.targetScore + ")" + " with a score of " + s.targetScore);
+            student.targetScore = s.targetScore;
+        }
+    });
 }
 
 /**
