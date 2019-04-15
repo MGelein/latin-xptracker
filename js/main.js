@@ -177,6 +177,7 @@ function parseStudents() {
  * @param {Student} s 
  */
 function replaceScore(s) {
+    if(!s.correct) return;
     students.forEach(student => {
         if (student.name == s.name) {
             //console.log("Replacing score of " + student.name + "(" + student.targetScore + ")" + " with a score of " + s.targetScore);
@@ -193,6 +194,7 @@ function replaceScore(s) {
 function studentExists(s) {
     //For all students, check if the provided one matches
     let found = false;
+    if(!s.correct) return true;
     students.forEach(student => {
         if (found) return;
         if (student.name == s.name) found = true;

@@ -9,6 +9,8 @@ function Student(line) {
     while(parts.length < 3){
         parts.push("0");
     }
+    this.correct = true;
+    if(parts[0] == '0' || parts[0].length < 1) this.correct = false;
     //Parse the name
     this.name = parts[0].trim();
     //The nickname
