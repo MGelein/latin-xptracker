@@ -5,6 +5,10 @@
  */
 const SKETCH_WIDTH = 1280;
 const SKETCH_HEIGHT = 720;
+const BAR_W = SKETCH_WIDTH - 300;
+const MAX_SCORE = 1100;
+const SCORE10 = 1000;
+const SCORE5_5 = 550;
 //The different colors of the star
 var GOLD, BRONZE, SILVER;
 //The lines of the file as it was last loaded
@@ -38,9 +42,12 @@ function setup() {
     GOLD = color(32, 255, 255);
     BRONZE = color(20, 255, 190);
     SILVER = color(36, 0, 190);
+    //Reset the colormode
+    colorMode(RGB, 255);
     //Parse the students
     parseStudents();
-    console.log(students);
+    //Set the textsize
+    textSize(24);
 }
 
 /**
@@ -49,20 +56,40 @@ function setup() {
 function draw() {
     //Draw a white background
     background(255);
+    //Draw every student
+    push();
+    translate(0, 80);
+    students.forEach(student => {
+        student.render();
+        translate(0, 60);
+    });
+    pop();
+
+    //Draw the 10 mark
+    let x = 140 + map(1000, 0, MAX_SCORE, 30, BAR_W);
+    stroke(120);
+    line(x, 40, x, height - 20);
+    //Draw the 5,5 mark
+    x = 140 + map(550, 0, MAX_SCORE, 30, BAR_W);
+    stroke(120);
+    line(x, 40, x, height - 20);
+
+    //Sort all the students
+    students.sort(function(a, b){
+        return b.score - a.score;
+    });
 }
 
 /**
  * Creates a star using this function
  * @param {Number} x the center point x of the star
  * @param {Number} y the center point y of the star
- * @param {Color} c the color of the star
  */
-function star(x, y, c) {
-    let r1 = 50;
-    let r2 = 30;
+function star(x, y) {
+    let r1 = 20;
+    let r2 = 10;
     push();
     stroke(0, 80);
-    fill(c);
     //Translate to the position
     translate(x, y);
     //Calculate angle and halfangle
@@ -89,15 +116,15 @@ function star(x, y, c) {
 /**
  * Parses the lines file into a studnets file
  */
-function parseStudents(){
+function parseStudents() {
     //For each of the lines, parse them
-    lines.forEach(line =>{
+    lines.forEach(line => {
         //Ignore if the line starts with 'name', this means it's a header line
-        if(line.indexOf('name') == 0) return;
+        if (line.indexOf('name') == 0) return;
         //Create a new student instance
         let student = new Student(line);
         //Add a student if it didn't exist yet
-        if(!studentExists(student)) students.push(student);
+        if (!studentExists(student)) students.push(student);
     });
 }
 
@@ -105,10 +132,10 @@ function parseStudents(){
  * Sees if a student with the provided name already exists
  * @param {Student} s 
  */
-function studentExists(s){
+function studentExists(s) {
     //For all students, check if the provided one matches
     students.forEach(student => {
-        if(student.name === s.name) return true;
+        if (student.name === s.name) return true;
     });
     //If no match found, set to false
     return false;

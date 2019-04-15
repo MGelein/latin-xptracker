@@ -2,16 +2,16 @@
 HTML OVERRIDES
 **/
 body{
-    margin: 0;
+    margin-left: 5%;
     padding: 0;
     overflow: hidden;
-    width: 200vw;
+    width: 90%;
     height: 300vh;
 }
 
 canvas{
     height: auto;
-    width: 100vw;
+    width: 100%;
     z-index: -1;
 }
 /**
