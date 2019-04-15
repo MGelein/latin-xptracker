@@ -43,7 +43,7 @@ function Student(line) {
         //Draw the nickname
         fill(0);
         textFont(fontCaesar);
-        textSize(22);
+        textSize(18);
         let tw = textWidth(this.nick) / 2;
         text(this.nick, 75 - tw, 50);
 
