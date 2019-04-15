@@ -169,7 +169,7 @@ function parseStudents() {
 
     });
     //Reload the file after a couple of seconds
-    setTimeout(loadFile, 10000);//Every 10 seconds
+    setTimeout(loadFile, 5000);//Every 5 seconds
 }
 
 /**
