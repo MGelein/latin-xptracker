@@ -20,6 +20,7 @@ const students = [];
  * Load the data file before we continue
  */
 function preload() {
+    $.ajaxSetup({cache:false});
     loadFile(true);
 }
 
@@ -28,10 +29,12 @@ function preload() {
  */
 function loadFile(skipDelay) {
     //Load the lines
-    lines = loadStrings('https://raw.githubusercontent.com/MGelein/latin-xptracker/master/data/scores.csv');
     console.log("Loading data file...");
-    //Later parse the students
-    if(!skipDelay) setTimeout(parseStudents, 2000);//2 Seconds later, parse the students
+    $.get('https://raw.githubusercontent.com/MGelein/latin-xptracker/master/data/scores.csv', function(data){
+        //Later parse the students
+        lines = data.split('\n');
+        parseStudents();
+    });
 }
 
 /**
