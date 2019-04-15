@@ -28,7 +28,7 @@ function Student(line) {
 
         //Draw the bar
         fill(180);
-        noStroke();
+        stroke(0, 80);
         rect(10, 35, width - 55, 20, 10);
         //Nameholder
         stroke(200);
@@ -36,8 +36,10 @@ function Student(line) {
         rect(20, 15, 110, 50, 10);
         //Draw the nickname
         fill(0);
-        textSize(24);
-        text(this.nick, 25, 50);
+        textFont(fontCaesar);
+        textSize(22);
+        let tw = textWidth(this.nick) / 2;
+        text(this.nick, 75 - tw, 50);
 
         //Draw outer bar
         stroke(200);
@@ -64,6 +66,7 @@ function Student(line) {
         rect(140, 55, w, 10, 10);
 
         //Draw the score text
+        textFont(fontRomanica);
         textSize(16);
         fill(120);
         text(parseInt(this.score), max(80 + w, 145), 48);

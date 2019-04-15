@@ -15,12 +15,17 @@ var GOLD, BRONZE, SILVER;
 var lines = [];
 //The array of students
 const students = [];
+//The font to use
+let fontRomanica;
+let fontCaesar;
 
 /**
  * Load the data file before we continue
  */
 function preload() {
-    $.ajaxSetup({cache:false});
+    fontRomanica = loadFont('data/Romanica.ttf');
+    fontCaesar = loadFont('data/CAESAR.TTF');
+    $.ajaxSetup({ cache: false });
     loadFile(true);
 }
 
@@ -30,7 +35,7 @@ function preload() {
 function loadFile(skipDelay) {
     //Load the lines
     console.log("Loading data file...");
-    $.get('./data/scores.csv', function(data){
+    $.get('./data/scores.csv', function (data) {
         //Later parse the students
         lines = data.split('\n');
         parseStudents();
@@ -53,8 +58,8 @@ function setup() {
     colorMode(HSB);
     //Set the colors
     GOLD = color(32, 255, 255);
-    BRONZE = color(20, 255, 190);
-    SILVER = color(36, 0, 190);
+    BRONZE = color(20, 180, 80);
+    SILVER = color(36, 0, 80);
     //Reset the colormode
     colorMode(RGB, 255);
     //Parse the students
@@ -91,6 +96,27 @@ function draw() {
     students.sort(function (a, b) {
         return b.score - a.score;
     });
+
+    //Draw the labels next to the thingies
+    stroke(200);
+    fill(245);
+    rect(595, 30, 100, 50, 10);
+    textFont(fontCaesar);
+    textSize(32);
+    fill(0);
+    text("550 LP", 602, 63);
+    //Second label
+    stroke(200);
+    fill(245);
+    rect(980, 30, 110, 50, 10);
+    textFont(fontCaesar);
+    textSize(32);
+    fill(0);
+    text("1000 LP", 992, 63);
+
+    //Draw the main title
+    textSize(64);
+    text("Ovidius 4G Latijn", 10, 70);
 }
 
 /**
@@ -140,7 +166,7 @@ function parseStudents() {
         //Add a student if it didn't exist yet
         if (!studentExists(student)) students.push(student);
         else replaceScore(student);
-        
+
     });
     //Reload the file after a couple of seconds
     setTimeout(loadFile, 10000);//Every 10 seconds
@@ -150,10 +176,10 @@ function parseStudents() {
  * Replaces the score of a student with the same name
  * @param {Student} s 
  */
-function replaceScore(s){
-    students.forEach(student =>{
-        if(student.name == s.name) {
-            console.log("Replacing score of " + student.name + "(" + student.targetScore + ")" + " with a score of " + s.targetScore);
+function replaceScore(s) {
+    students.forEach(student => {
+        if (student.name == s.name) {
+            //console.log("Replacing score of " + student.name + "(" + student.targetScore + ")" + " with a score of " + s.targetScore);
             student.targetScore = s.targetScore;
         }
     });
@@ -167,7 +193,7 @@ function studentExists(s) {
     //For all students, check if the provided one matches
     let found = false;
     students.forEach(student => {
-        if(found) return;
+        if (found) return;
         if (student.name == s.name) found = true;
     });
     //If no match found, set to false
