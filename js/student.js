@@ -79,9 +79,19 @@ function Student(line) {
         rect(BAR_W + 150, 15, 90, 50, 10);
 
         //Draw the fucking star
-        if (this.score >= MAX_SCORE) fill(GOLD);
-        else if (this.score >= SCORE10) fill(SILVER);
-        else if (this.score >= SCORE5_5) fill(BRONZE);
+        let drawShadow = true;
+        let fColor = false;
+        if (this.score >= MAX_SCORE) fColor = GOLD;
+        else if (this.score >= SCORE10) fColor = SILVER;
+        else if (this.score >= SCORE5_5) fColor = BRONZE;
+        else {
+            drawShadow = false;
+        }
+        if(drawShadow){
+            fill(0, 120)
+            star(BAR_W + 197, 42);
+            fill(fColor);
+        }
         stroke(0, 120);
         star(BAR_W + 195, 40);
     }
