@@ -115,8 +115,8 @@ function draw() {
     text("1000 LP", 992, 63);
 
     //Draw the main title
-    textSize(64);
-    text("Ovidius 4G Latijn", 10, 70);
+    textSize(70);
+    text("Ave Strijders", 30, 70);
 }
 
 /**

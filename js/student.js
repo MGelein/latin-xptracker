@@ -6,17 +6,17 @@
 function Student(line) {
     //Split into parts
     let parts = line.split(",");
-    while(parts.length < 3){
+    while (parts.length < 3) {
         parts.push("0");
     }
     this.correct = true;
-    if(parts[0] == '0' || parts[0].length < 1) this.correct = false;
+    if (parts[0] == '0' || parts[0].length < 1) this.correct = false;
     //Parse the name
     this.name = parts[0].trim();
     //The nickname
     this.nick = parts[1].trim();
     //And the score, set it to the target
-    if(parts[2]) this.targetScore = parseInt(parts[2].trim());
+    if (parts[2]) this.targetScore = parseInt(parts[2].trim());
     else this.targetScore = 0;
     //For the actual score, this is eased
     this.score = 0;
@@ -30,7 +30,7 @@ function Student(line) {
         //Ease towards the correct score
         this.score += (this.targetScore - this.score) * 0.05;
 
-        if(abs(this.score - this.targetScore) < 1) this.score = this.targetScore;
+        if (abs(this.score - this.targetScore) < 1) this.score = this.targetScore;
 
         //Draw the bar
         fill(180);
@@ -43,8 +43,13 @@ function Student(line) {
         //Draw the nickname
         fill(0);
         textFont(fontCaesar);
-        textSize(18);
-        let tw = textWidth(this.nick) / 2;
+        let tw = 200;
+        let fontSize = 24;
+        while (tw > 55) {
+            fontSize -= 2;
+            textSize(fontSize);
+            tw = textWidth(this.nick) / 2;
+        }
         text(this.nick, 75 - tw, 50);
 
         //Draw outer bar
@@ -93,7 +98,7 @@ function Student(line) {
         else {
             drawShadow = false;
         }
-        if(drawShadow){
+        if (drawShadow) {
             fill(0, 120)
             star(BAR_W + 197, 42);
             fill(fColor);
