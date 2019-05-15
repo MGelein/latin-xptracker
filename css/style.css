@@ -10,8 +10,8 @@ body{
 }
 
 canvas{
-    height: auto;
-    width: 100%;
+    height: 90vh;
+    width: auto;
     z-index: -1;
 }
 /**
